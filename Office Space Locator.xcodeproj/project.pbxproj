@@ -6,6 +6,10 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		D78F8DEE2E903199008FEE32 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = D78F8DED2E903199008FEE32 /* Kingfisher */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		D78F8CA22E8EEA49008FEE32 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -52,6 +56,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D78F8DEE2E903199008FEE32 /* Kingfisher in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -78,6 +83,7 @@
 				D78F8C962E8EEA49008FEE32 /* Office Space Locator */,
 				D78F8CA42E8EEA49008FEE32 /* Office Space LocatorTests */,
 				D78F8CAE2E8EEA49008FEE32 /* Office Space LocatorUITests */,
+				D78F8DEC2E903199008FEE32 /* Frameworks */,
 				D78F8C952E8EEA49008FEE32 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -90,6 +96,13 @@
 				D78F8CAB2E8EEA49008FEE32 /* Office Space LocatorUITests.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		D78F8DEC2E903199008FEE32 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -112,6 +125,7 @@
 			);
 			name = "Office Space Locator";
 			packageProductDependencies = (
+				D78F8DED2E903199008FEE32 /* Kingfisher */,
 			);
 			productName = "Office Space Locator";
 			productReference = D78F8C942E8EEA49008FEE32 /* Office Space Locator.app */;
@@ -195,6 +209,10 @@
 			);
 			mainGroup = D78F8C8B2E8EEA49008FEE32;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				D78F8CF82E902E60008FEE32 /* XCRemoteSwiftPackageReference "Kingfisher" */,
+				D78F8CF92E902E97008FEE32 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = D78F8C952E8EEA49008FEE32 /* Products */;
 			projectDirPath = "";
@@ -550,6 +568,33 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		D78F8CF82E902E60008FEE32 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 8.5.0;
+			};
+		};
+		D78F8CF92E902E97008FEE32 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 12.3.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		D78F8DED2E903199008FEE32 /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D78F8CF82E902E60008FEE32 /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = D78F8C8C2E8EEA49008FEE32 /* Project object */;
 }

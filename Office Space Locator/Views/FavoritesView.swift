@@ -5,6 +5,9 @@
 //  Created by Esther Nzomo on 10/2/25.
 //
 import SwiftUI
+import Kingfisher
+
+
 
 
 struct FavoriteView: View {
@@ -15,9 +18,7 @@ struct FavoriteView: View {
     var body: some View {
         NavigationStack{
             VStack(alignment: .leading, spacing: 12) {
-                Image(systemName: "person.crop.circle")
-                    .resizable()
-                    .frame(width: 150, height: 150)
+                ImageScrollerView()
                 
                 Text(favorites.name)
                     .font(.title2)
