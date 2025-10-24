@@ -22,7 +22,7 @@ struct HomeView: View {
                     }
                 }
                 .tag(0)
-            Text("Favorites")
+           FavoritesListView()
                 .tabItem {
                     VStack{
                         Image(systemName: selectedTab == 1 ? "heart.fill" : "heart")

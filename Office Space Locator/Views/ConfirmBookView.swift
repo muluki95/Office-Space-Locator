@@ -7,8 +7,8 @@
 import SwiftUI
 
 
-struct BookView: View {
-    let office: Favorites
+struct ConfirmBookView: View {
+    let office: Office
     
     @Environment(\.dismiss) private var dismiss
     @State private var startDate: Date = Date()
@@ -16,7 +16,7 @@ struct BookView: View {
     @State private var showConfirmation = false
     var body: some View {
         NavigationStack {
-            VStack{
+            VStack(spacing:20){
                 DatePicker("Start Date", selection: $startDate, displayedComponents: .date )
                     .frame(maxWidth: .infinity)
                     .frame(height: 80)
@@ -33,11 +33,13 @@ struct BookView: View {
                     
                
                     HStack( spacing: 8){
-                        Text("Estimated Cost")
-                        
+                        Text("Monthly Price")
+                            .font(.headline)
+                                           
                         Spacer()
-                        
-                        Text("120dollars")
+                                           
+                        Text("$\(office.price)")
+                        .fontWeight(.semibold)
                         
                     }
                     .padding(.vertical)
@@ -77,7 +79,7 @@ struct BookView: View {
                     
                 }
             } message: {
-                Text("You booked \(office.name) for $1200")
+                Text("You booked \(office.name) for $\(office.price) per month")
                 
             }
             
@@ -88,6 +90,3 @@ struct BookView: View {
 }
 
 
-#Preview {
-    BookView(office: Favorites.mockData[0])
-}

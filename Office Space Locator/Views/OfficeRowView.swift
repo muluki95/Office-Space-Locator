@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Kingfisher
 
 
 struct OfficeRowView : View {
@@ -13,6 +14,24 @@ struct OfficeRowView : View {
     
     var body: some View {
         VStack(alignment: .leading, spacing: 2){
+            
+            ScrollView(.horizontal, showsIndicators: false){
+                HStack(spacing: 8){
+                    ForEach(office.imageURLs, id:\.self){ url in KFImage(URL(string: url))
+                            .placeholder{
+                                ProgressView()
+                            }
+                            .resizable()
+                            .scaledToFill()
+                            .frame(width: 200, height: 140)
+                            .clipShape(RoundedRectangle(cornerRadius: 12))
+                            .shadow(radius: 4)
+                            
+                        
+                    }
+                    
+                }
+            }
             Text(office.name)
                 .font(.headline)
             
@@ -30,6 +49,19 @@ struct OfficeRowView : View {
                     .font(.caption)
                     .foregroundStyle(office.available ? .green : .red)
             }
+                
+                //book now button
+                NavigationLink(destination: ConfirmBookView(office: office)){
+                    Text("Book Now")
+                        .fontWeight(.semibold)
+                        .frame(maxWidth: .infinity)
+                        .padding()
+                        .background(office.available ? Color.blue : Color.gray)
+                        .foregroundColor(.white)
+                        .cornerRadius(8)
+                    
+                }
+            .navigationBarBackButtonHidden()
             .padding(.top, 15)
         }
         .padding()

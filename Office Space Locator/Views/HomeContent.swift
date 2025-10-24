@@ -22,7 +22,7 @@ struct HomeContent : View {
                     OfficeRowView(office: office)
                 }
                 .listStyle(.plain)
-                .padding(.horizontal)
+                .padding(.horizontal, 10)
                 
                 }
             
