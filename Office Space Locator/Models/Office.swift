@@ -11,17 +11,10 @@ import FirebaseFirestore
 
 struct Office: Codable, Identifiable, Hashable {
     @DocumentID var id: String?
-    var name: String
-    var address: String
-    var size: Int
-    var price: Double
-    
-    
-    var available: Bool {
-            availableInt == 1
-        }
-        
-        private let availableInt: Int
+        var name: String
+        var address: String
+        var size: Int
+        var price: Double
         let imageUrls: [String]
         
         enum CodingKeys: String, CodingKey {
@@ -30,7 +23,6 @@ struct Office: Codable, Identifiable, Hashable {
             case address
             case price
             case size
-            case availableInt = "available"
             case imageUrls
         }
     

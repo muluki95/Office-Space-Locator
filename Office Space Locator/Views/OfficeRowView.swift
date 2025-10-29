@@ -47,9 +47,7 @@ struct OfficeRowView : View {
                 
                 Spacer()
                 
-                Text(office.available ? "Available" : "Unavailable")
-                    .font(.caption)
-                    .foregroundStyle(office.available ? .green : .red)
+                
             }
                 
                 //book now button
@@ -58,7 +56,7 @@ struct OfficeRowView : View {
                         .fontWeight(.semibold)
                         .frame(maxWidth: .infinity)
                         .padding()
-                        .background(office.available ? Color.blue : Color.gray)
+                        .background(Color.blue)
                         .foregroundColor(.white)
                         .cornerRadius(8)
                     
