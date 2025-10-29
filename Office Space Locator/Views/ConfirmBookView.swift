@@ -66,6 +66,7 @@ struct ConfirmBookView: View {
             .padding(.horizontal)
             .navigationTitle("Book")
             .navigationBarTitleDisplayMode(.inline)
+            .navigationBarBackButtonHidden()
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
                             Button(action: { dismiss() }) {

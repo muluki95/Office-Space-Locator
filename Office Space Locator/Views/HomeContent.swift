@@ -10,24 +10,31 @@ import SwiftUI
 
 
 struct HomeContent : View {
-    let offices : [Office] = Office.sampleData
+    //let offices : [Office] = Office.sampleData
+    
+    @EnvironmentObject var viewModel: OfficeViewModel
+    
     var body: some View {
         NavigationStack {
             VStack(spacing: 12){
             SearchBarView()
+                    .padding()
             
             Spacer()
            
-                List(offices){office in
+                List(viewModel.offices){office in
                     OfficeRowView(office: office)
                 }
                 .listStyle(.plain)
-                .padding(.horizontal, 10)
+                .padding(.horizontal, 5)
                 
                 }
             
             .navigationTitle("Find Office Space")
             .navigationBarTitleDisplayMode(.inline)
+            .task{
+                await viewModel.fetchOffices()
+            }
             
            
             }
@@ -39,4 +46,9 @@ struct HomeContent : View {
         
     }
     
+
+#Preview {
+    HomeContent()
+        .environmentObject(OfficeViewModel())
+}
 

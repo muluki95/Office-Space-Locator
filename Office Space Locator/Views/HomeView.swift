@@ -10,6 +10,7 @@ import SwiftUI
 
 
 struct HomeView: View {
+    @EnvironmentObject var viewModel: OfficeViewModel
     
     @State private var selectedTab = 0
     var body: some View {
@@ -48,4 +49,5 @@ struct HomeView: View {
 
 #Preview {
     HomeView()
+        .environmentObject(OfficeViewModel())
 }

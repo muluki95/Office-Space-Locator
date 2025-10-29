@@ -12,12 +12,14 @@ import Kingfisher
 struct OfficeRowView : View {
     let office: Office
     
+    @EnvironmentObject var viewModel: OfficeViewModel
+    
     var body: some View {
         VStack(alignment: .leading, spacing: 2){
             
             ScrollView(.horizontal, showsIndicators: false){
                 HStack(spacing: 8){
-                    ForEach(office.imageURLs, id:\.self){ url in KFImage(URL(string: url))
+                    ForEach(office.imageUrls, id:\.self){ url in KFImage(URL(string: url))
                             .placeholder{
                                 ProgressView()
                             }
@@ -73,6 +75,7 @@ struct OfficeRowView : View {
 }
 
 
-#Preview {
-    OfficeRowView(office: Office.sampleData[0])
-}
+//#Preview {
+    //OfficeRowView()
+    //.environmentObject(OfficeViewModel())
+//}

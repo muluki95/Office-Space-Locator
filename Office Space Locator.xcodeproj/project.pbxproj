@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		D78F8DEE2E903199008FEE32 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = D78F8DED2E903199008FEE32 /* Kingfisher */; };
+		D78F8E4A2EB113BD008FEE32 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = D78F8E492EB113BD008FEE32 /* FirebaseAnalytics */; };
+		D78F8E4C2EB113BD008FEE32 /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = D78F8E4B2EB113BD008FEE32 /* FirebaseDatabase */; };
+		D78F8E4E2EB113BD008FEE32 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = D78F8E4D2EB113BD008FEE32 /* FirebaseFirestore */; };
+		D78F8E502EB113BD008FEE32 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = D78F8E4F2EB113BD008FEE32 /* FirebaseStorage */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,6 +60,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D78F8E4C2EB113BD008FEE32 /* FirebaseDatabase in Frameworks */,
+				D78F8E4E2EB113BD008FEE32 /* FirebaseFirestore in Frameworks */,
+				D78F8E4A2EB113BD008FEE32 /* FirebaseAnalytics in Frameworks */,
+				D78F8E502EB113BD008FEE32 /* FirebaseStorage in Frameworks */,
 				D78F8DEE2E903199008FEE32 /* Kingfisher in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -126,6 +134,10 @@
 			name = "Office Space Locator";
 			packageProductDependencies = (
 				D78F8DED2E903199008FEE32 /* Kingfisher */,
+				D78F8E492EB113BD008FEE32 /* FirebaseAnalytics */,
+				D78F8E4B2EB113BD008FEE32 /* FirebaseDatabase */,
+				D78F8E4D2EB113BD008FEE32 /* FirebaseFirestore */,
+				D78F8E4F2EB113BD008FEE32 /* FirebaseStorage */,
 			);
 			productName = "Office Space Locator";
 			productReference = D78F8C942E8EEA49008FEE32 /* Office Space Locator.app */;
@@ -593,6 +605,26 @@
 			isa = XCSwiftPackageProductDependency;
 			package = D78F8CF82E902E60008FEE32 /* XCRemoteSwiftPackageReference "Kingfisher" */;
 			productName = Kingfisher;
+		};
+		D78F8E492EB113BD008FEE32 /* FirebaseAnalytics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D78F8CF92E902E97008FEE32 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAnalytics;
+		};
+		D78F8E4B2EB113BD008FEE32 /* FirebaseDatabase */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D78F8CF92E902E97008FEE32 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseDatabase;
+		};
+		D78F8E4D2EB113BD008FEE32 /* FirebaseFirestore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D78F8CF92E902E97008FEE32 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestore;
+		};
+		D78F8E4F2EB113BD008FEE32 /* FirebaseStorage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D78F8CF92E902E97008FEE32 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseStorage;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
