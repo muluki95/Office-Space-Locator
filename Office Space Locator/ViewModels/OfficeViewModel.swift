@@ -53,16 +53,26 @@ class OfficeViewModel: ObservableObject {
         favorites.contains(where: {$0.id == office.id && $0.isFavorite})
     }
     
-    func confirmBooking(office: Favorites){
-        if !favorites.contains(where: {$0.id == office.id } ) {
-            var newFavorite = office
-            newFavorite.isFavorite = true
-            favorites.append(newFavorite)
-            print("Added \(office.name) to favorites")
+    func confirmBooking(office: Office){
+        //create a Favorite from the Office you booked
+        let favorite = Favorites(
+                id: office.id ?? UUID().uuidString,
+                imageURL: office.imageUrls,
+                name: office.name,
+                location: office.address,
+                size: office.size,
+                price: Int(office.price),
+                isFavorite: true
+            )
+        
+        //checks if the office is already in the favorites list
+        if !favorites.contains(where: {$0.id == favorite.id } ) {
+            favorites.append(favorite)
+            print("Added \(favorite.name) to favorites")
             
             
         } else {
-            print("\(office.name) is already in favorites")
+            print("\(favorite.name) is already in favorites")
         }
     }
 }

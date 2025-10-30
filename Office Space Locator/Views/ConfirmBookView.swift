@@ -48,7 +48,7 @@ struct ConfirmBookView: View {
                 
                 //confirm button
                 Button(action: {
-                    viewModel.confirmBooking(for office: Favorites)
+                    viewModel.confirmBooking(office: office)
                     showConfirmation = true
                     
                 }) {
