@@ -61,7 +61,6 @@ struct OfficeRowView : View {
                         .cornerRadius(8)
                     
                 }
-            .navigationBarBackButtonHidden()
             .padding(.top, 15)
         }
         .padding()

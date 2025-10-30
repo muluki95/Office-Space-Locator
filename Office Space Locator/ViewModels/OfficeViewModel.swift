@@ -11,6 +11,7 @@ import FirebaseFirestore
 
 class OfficeViewModel: ObservableObject {
     @Published var offices: [Office] = []
+    @Published var favorites: [Favorites] = []
     
     
     private let db = Firestore.firestore()
@@ -37,4 +38,31 @@ class OfficeViewModel: ObservableObject {
         }
     }
     
+    
+    func toggleFavorite(for office: Favorites) {
+        if favorites.contains(where: { $0.id == office.id }) {
+            // If this office is already in the favorites list, remove it
+            favorites.removeAll { $0.id == office.id }
+        } else {
+            // Otherwise, add it to the favorites list
+            favorites.append(office)
+        }
+    }
+    
+    func isFavorite(office: Favorites) -> Bool {
+        favorites.contains(where: {$0.id == office.id && $0.isFavorite})
+    }
+    
+    func confirmBooking(office: Favorites){
+        if !favorites.contains(where: {$0.id == office.id } ) {
+            var newFavorite = office
+            newFavorite.isFavorite = true
+            favorites.append(newFavorite)
+            print("Added \(office.name) to favorites")
+            
+            
+        } else {
+            print("\(office.name) is already in favorites")
+        }
+    }
 }
