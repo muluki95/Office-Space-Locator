@@ -10,8 +10,8 @@ import SwiftUI
 struct ConfirmBookView: View {
     let office: Office
     @EnvironmentObject var viewModel: OfficeViewModel
+    @Environment(\.dismiss) var dismiss
     
-    @Environment(\.dismiss) private var dismiss
     @State private var startDate: Date = Date()
     @State private var endDate: Date = Date()
     @State private var showConfirmation = false
@@ -51,6 +51,7 @@ struct ConfirmBookView: View {
                     viewModel.confirmBooking(office: office)
                     showConfirmation = true
                     
+                    
                 }) {
                     Text("Confirm Booking")
                         .frame(maxWidth: .infinity)
@@ -79,6 +80,7 @@ struct ConfirmBookView: View {
                     }
             .alert("Booking Confirmed", isPresented: $showConfirmation){
                 Button("OK", role:.cancel){
+                    dismiss()
                     
                 }
             } message: {

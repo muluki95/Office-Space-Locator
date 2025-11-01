@@ -32,6 +32,9 @@ struct FavoritesListView: View {
                 }
             }
             .navigationTitle("Office Spaces")
+            .onAppear{
+                viewModel.fetchFavorites()
+            }
             
         }
         

@@ -71,8 +71,35 @@ class OfficeViewModel: ObservableObject {
             print("Added \(favorite.name) to favorites")
             
             
+            do{
+                try db.collection("favorites").document(favorite.id).setData(from: favorite)
+                print("Added \(favorite.name) to Firestore favorites")
+                
+            } catch {
+                print("Error saving favorite to Firestore: \(error.localizedDescription)")
+                
+            }
+            
         } else {
             print("\(favorite.name) is already in favorites")
+        }
+    }
+    
+    
+    func fetchFavorites() {
+        db.collection("favorites").getDocuments {snapshot, error in
+            if let error = error {
+                print("Error fetching favorites from Firestore: \(error.localizedDescription)")
+                return
+            }
+            if let snapshot = snapshot {
+                self.favorites = snapshot.documents.compactMap { document  in
+                    try? document.data(as: Favorites.self)
+                    
+                }
+                print("Retrieved \(self.favorites.count) from Firestore favorites")
+            }
+            
         }
     }
 }
