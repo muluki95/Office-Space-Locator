@@ -14,9 +14,11 @@ struct LoginView: View {
     @State var password = ""
     var body: some View {
         NavigationStack{
+           
             VStack{
                 
                 VStack(spacing: 24){
+                Spacer()
                 InputView(text: $email,
                               title: "Email Address",
                               placeholder: "abc@gmail..com")
@@ -27,8 +29,6 @@ struct LoginView: View {
                               placeholder: "Enter your password",
                               isSecureField: true
                     )
-                    .padding(.top, 12)
-                    
                     
                     Button{
                         
@@ -47,6 +47,23 @@ struct LoginView: View {
                     .cornerRadius(10)
                     .padding(.horizontal, 12)
                     
+                    Spacer()
+                    NavigationLink {
+                        SignUpView()
+                            .navigationBarBackButtonHidden(true)
+                    } label: {
+                        HStack{
+                            Text("Don't have an account?")
+                            Text("Sign Up")
+                                .fontWeight(.bold)
+                        }
+                        .font(.system(size: 14))
+                    }
+                   
+                   
+                    
+                    
+                    
                    
                     
                 }
@@ -54,7 +71,9 @@ struct LoginView: View {
                 
                 
             }
+           
         }
+        
     }
 }
 
