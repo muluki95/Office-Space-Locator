@@ -102,4 +102,20 @@ class OfficeViewModel: ObservableObject {
             
         }
     }
+    
+    
+    func deleteFavorites(_ favorite: Favorites) {
+        favorites.removeAll { $0.id == favorite.id}
+        print("Removed \(favorite.name) from favorites")
+        
+        db.collection("favorites").document(favorite.id).delete { error in
+            if let error = error {
+                print("Error deleting favorite from Firestore: \(error.localizedDescription)")
+            } else {
+                print("Successfully deleted \(favorite.name) from Firestore")
+            }
+            
+        }
+        
+    }
 }

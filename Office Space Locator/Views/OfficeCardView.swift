@@ -13,6 +13,8 @@ import Kingfisher
 struct OfficeCardView: View {
     
     @State var office: Favorites
+    @EnvironmentObject var viewModel: OfficeViewModel
+    @State private var showDeleteAlert = false
     
     var body: some View {
         VStack(alignment: .leading, spacing: 10){
@@ -40,6 +42,18 @@ struct OfficeCardView: View {
                     
                 }
                 .buttonStyle(PlainButtonStyle())
+                
+                //Delete button
+                Button {
+                    showDeleteAlert = true
+                } label: {
+                    Image(systemName: "trash")
+                    .foregroundColor(.red)
+                    .font(.system(size: 20))
+                }
+                .buttonStyle(PlainButtonStyle())
+                .padding(.leading, 8)
+                
             }
             
             HStack{
@@ -56,6 +70,15 @@ struct OfficeCardView: View {
             
         }
         .padding()
+        .alert("Remove Favorites?", isPresented: $showDeleteAlert){
+            Button("Delete", role: .destructive){
+                viewModel.deleteFavorites(office)
+                
+            }
+            Button("Cancel", role:.cancel){}
+        } message: {
+            Text("This office space will be removed from your favorites.")
+        }
         
         
     }
@@ -64,4 +87,5 @@ struct OfficeCardView: View {
 
 #Preview{
     OfficeCardView(office: Favorites.mockData[0])
+        .environmentObject(OfficeViewModel())
 }
