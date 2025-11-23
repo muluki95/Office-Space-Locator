@@ -12,6 +12,7 @@ import Kingfisher
 
 struct FavoritesListView: View {
     @EnvironmentObject var viewModel: OfficeViewModel
+    @EnvironmentObject var favoritesViewModel: FavoritesViewModel
     
     //@State private var offices = Favorites.mockData
     
@@ -19,12 +20,12 @@ struct FavoritesListView: View {
         NavigationStack {
             ScrollView{
                 LazyVStack{
-                    if viewModel.favorites.isEmpty {
+                    if favoritesViewModel.favorites.isEmpty {
                         Text("No favorites yet")
                         .foregroundColor(.gray)
                         .padding()
                     } else {
-                        ForEach(viewModel.favorites){ office in
+                        ForEach(favoritesViewModel.favorites){ office in
                             OfficeCardView(office: office)
                         }
                     }
@@ -33,7 +34,7 @@ struct FavoritesListView: View {
             }
             .navigationTitle("Office Spaces")
             .onAppear{
-                viewModel.fetchFavorites()
+                favoritesViewModel.fetchFavorites()
             }
             
         }
@@ -47,4 +48,5 @@ struct FavoritesListView: View {
 #Preview {
     FavoritesListView()
         .environmentObject(OfficeViewModel())
+        .environmentObject(FavoritesViewModel())
 }

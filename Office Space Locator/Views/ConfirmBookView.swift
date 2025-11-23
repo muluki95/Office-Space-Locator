@@ -10,6 +10,7 @@ import SwiftUI
 struct ConfirmBookView: View {
     let office: Office
     @EnvironmentObject var viewModel: OfficeViewModel
+    @EnvironmentObject var favoritesViewModel: FavoritesViewModel
     @Environment(\.dismiss) var dismiss
     
     @State private var startDate: Date = Date()
@@ -48,7 +49,7 @@ struct ConfirmBookView: View {
                 
                 //confirm button
                 Button(action: {
-                    viewModel.confirmBooking(office: office)
+                    favoritesViewModel.confirmBooking(office: office)
                     showConfirmation = true
                     
                     

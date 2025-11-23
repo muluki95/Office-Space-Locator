@@ -14,6 +14,7 @@ struct OfficeCardView: View {
     
     @State var office: Favorites
     @EnvironmentObject var viewModel: OfficeViewModel
+    @EnvironmentObject var favoritesViewModel: FavoritesViewModel
     @State private var showDeleteAlert = false
     
     var body: some View {
@@ -72,7 +73,7 @@ struct OfficeCardView: View {
         .padding()
         .alert("Remove Favorites?", isPresented: $showDeleteAlert){
             Button("Delete", role: .destructive){
-                viewModel.deleteFavorites(office)
+                favoritesViewModel.deleteFavorites(office)
                 
             }
             Button("Cancel", role:.cancel){}
@@ -88,4 +89,5 @@ struct OfficeCardView: View {
 #Preview{
     OfficeCardView(office: Favorites.mockData[0])
         .environmentObject(OfficeViewModel())
+        .environmentObject(FavoritesViewModel())
 }

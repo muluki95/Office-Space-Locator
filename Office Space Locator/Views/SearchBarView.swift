@@ -9,38 +9,37 @@ import SwiftUI
 
 
 struct SearchBarView: View {
+    
+    @EnvironmentObject var viewModel: OfficeViewModel
+    
+    
     var body: some View {
         HStack {
-            Image(systemName: "magnifyingglass")
-            
-            VStack(alignment:.leading, spacing: 2){
-                Text("Looking for an office space?")
-                    .font(.footnote)
-                    .fontWeight(.semibold)
-                Text("Search for a location")
-                    .font(.caption)
-                    .foregroundStyle(.gray)
-            }
+            TextField("Search by location",text: $viewModel.searchText )
+                .padding()
+                .background(Color(.systemGray6))
+                .cornerRadius(10)
             
             Spacer()
             
-            Button(action:{}, label: {
-                Image(systemName: "line.3.horizontal.decrease.circle")
-                    .foregroundStyle(.black)
-            })
+            Button{
+                viewModel.searchByLocation()
+                
+            } label: {
+                Image(systemName: "magnifyingglass")
+                    .padding()
+                
+            }
         }
-        .padding(.horizontal)
-        .padding(.vertical, 10)
-        .overlay{
-            Capsule()
-                .stroke(lineWidth: 0.5)
-        }
+        .padding(.horizontal, 10)
     }
+    
 }
 
 
 #Preview{
     SearchBarView()
+        .environmentObject(OfficeViewModel())
 }
 
 

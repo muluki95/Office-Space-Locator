@@ -7,7 +7,7 @@
 
 import Foundation
 import FirebaseFirestore
-
+import CoreLocation
 
 struct Office: Codable, Identifiable, Hashable {
     @DocumentID var id: String?
@@ -16,6 +16,14 @@ struct Office: Codable, Identifiable, Hashable {
         var size: Int
         var price: Double
         let imageUrls: [String]
+
+       var latitude: Double
+       var longitude: Double
+    
+    //coordinates for MapKit
+       var coordinate: CLLocationCoordinate2D {
+            CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+        }
         
         enum CodingKeys: String, CodingKey {
             case id
@@ -24,6 +32,8 @@ struct Office: Codable, Identifiable, Hashable {
             case price
             case size
             case imageUrls
+            case latitude
+            case longitude
         }
     
     

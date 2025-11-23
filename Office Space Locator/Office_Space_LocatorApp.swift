@@ -20,6 +20,7 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 struct YourApp: App {
     
     @StateObject var viewModel = OfficeViewModel()
+    @StateObject var favoriteViewModel = FavoritesViewModel()
   // register app delegate for Firebase setup
   @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
     
@@ -29,6 +30,7 @@ struct YourApp: App {
       NavigationView {
        HomeView()
               .environmentObject(viewModel)
+              .environmentObject(favoriteViewModel)
       }
     }
   }
