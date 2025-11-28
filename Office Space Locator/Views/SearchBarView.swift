@@ -23,13 +23,12 @@ struct SearchBarView: View {
             Spacer()
             
             Button{
-                viewModel.searchByLocation()
-                
+                viewModel.search()
+
             } label: {
-                Image(systemName: "magnifyingglass")
-                    .padding()
-                
-            }
+            Image(systemName: "magnifyingglass")
+                                .padding()
+                        }
         }
         .padding(.horizontal, 10)
     }

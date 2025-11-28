@@ -2,67 +2,62 @@
 //  HomeContent.swift
 //  Office Space Locator
 //
-//  Created by Esther Nzomo on 10/2/25.
-//
 
 import SwiftUI
 import MapKit
 
-
-
-struct HomeContent : View {
-    //let offices : [Office] = Office.sampleData
+struct HomeContent: View {
     
     @EnvironmentObject var viewModel: OfficeViewModel
     
     var body: some View {
         NavigationStack {
-            ZStack{
-                Map(position: $viewModel.mapPosition)
-                    { ForEach(viewModel.filteredOffices){office in
-                    Marker(office.name, coordinate: office.coordinate)
-                    
+            ZStack {
+                
+                /// MAP
+                Map(position: $viewModel.mapPosition) {
+                    ForEach(viewModel.filteredOffices) { office in
+                        Marker(office.name, coordinate: office.coordinate)
+                    }
                 }
+                .ignoresSafeArea()
+                
+                /// SEARCH + LIST
+                VStack(spacing: 12) {
                     
-                }
-                 .ignoresSafeArea()
-                    
-                VStack(spacing: 12){
                     SearchBarView()
-                        .padding()
+                        .padding(.horizontal)
+                        .padding(.top, 10)
                     
                     Spacer()
                     
-                    List(viewModel.filteredOffices){office in
-                        OfficeRowView(office: office)
-                    }
-                    .listStyle(.plain)
-                    .frame(maxHeight: 350)
-                    .background(.ultraThinMaterial)
-                    .clipShape(RoundedRectangle(cornerRadius: 20))
-                    .padding(.horizontal)
                     
-                }
-            }
+            if !viewModel.filteredOffices.isEmpty {
+                List(viewModel.filteredOffices) { office in
+               OfficeRowView(office: office)
+                                            }
+                                            .listStyle(.plain)
+                                            .frame(maxHeight: 350)
+                                            .background(.ultraThinMaterial)
+                                            .clipShape(RoundedRectangle(cornerRadius: 20))
+                                            .padding(.horizontal)
+                                            .transition(.move(edge: .bottom).combined(with: .opacity))
+                                            .animation(.easeInOut, value: viewModel.filteredOffices)
+                                        }
+                                    }
+                                }
             .navigationTitle("Find Office Space")
             .navigationBarTitleDisplayMode(.inline)
-            .task{
+            
+            /// INITIAL LOAD — Firebase only
+            .task {
                 await viewModel.fetchOffices()
             }
-            
-           
-            }
-            
-            
-            
-            
         }
-        
     }
-    
+}
 
 #Preview {
     HomeContent()
         .environmentObject(OfficeViewModel())
 }
-
