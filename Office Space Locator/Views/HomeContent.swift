@@ -15,7 +15,11 @@ struct HomeContent: View {
             ZStack(alignment: .top) {
                 
                 /// MAP
-                Map(coordinateRegion: $viewModel.region)
+                Map(coordinateRegion: $viewModel.region, annotationItems: viewModel.mapAnnotations){
+                    annotation in
+                    
+                    MapPin(coordinate: annotation.coordinate, tint: .red)
+                }
                     .ignoresSafeArea()
                 
                 /// SEARCH + LIST
