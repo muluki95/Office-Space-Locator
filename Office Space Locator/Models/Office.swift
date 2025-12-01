@@ -16,13 +16,13 @@ struct Office: Codable, Identifiable, Hashable {
         var size: Int
         var price: Double
         let imageUrls: [String]
-
-       var latitude: Double
-       var longitude: Double
+        var latitude: Double = 0
+        var longitude: Double = 0
     
     //coordinates for MapKit
        var coordinate: CLLocationCoordinate2D {
-            CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+            CLLocationCoordinate2D(latitude: latitude ,
+                                   longitude: longitude )
         }
         
         enum CodingKeys: String, CodingKey {
@@ -38,6 +38,5 @@ struct Office: Codable, Identifiable, Hashable {
     
     
 }
-
 
 

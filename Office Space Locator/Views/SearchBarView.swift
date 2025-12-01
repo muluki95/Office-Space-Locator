@@ -24,13 +24,13 @@ struct SearchBarView: View {
             
             Button{
                 viewModel.search()
-
+                viewModel.showResultsSheet = true
             } label: {
             Image(systemName: "magnifyingglass")
                                 .padding()
                         }
         }
-        .padding(.horizontal, 10)
+        .padding()
     }
     
 }

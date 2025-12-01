@@ -14,22 +14,14 @@ class OfficeViewModel: ObservableObject {
     //@Published var favorites: [Favorites] = []
     @Published var filteredOffices: [Office] = []
     @Published var searchText: String = ""
-    @Published var cameraPosition: MapCameraPosition = .automatic
-    @Published var userLocation: CLLocationCoordinate2D? = nil
-    
-    
-    @Published var mapPosition: MapCameraPosition = .region(
-        MKCoordinateRegion(
-            center: CLLocationCoordinate2D(latitude: 39.8283, longitude: -98.5795),  // USA center
-            span: MKCoordinateSpan(latitudeDelta: 30, longitudeDelta: 30)
+    @Published var region = MKCoordinateRegion(
+    center: CLLocationCoordinate2D(latitude: 39.5, longitude: -98.35),
+    span: MKCoordinateSpan(latitudeDelta: 20, longitudeDelta: 20)
         )
-    )
-      
-    
+    @Published var showResultsSheet = false
     private let db = Firestore.firestore()
     
-    private let apiKey = "AIzaSyDDspSlxfXNVAt9ZfKKzVx8WgnOZ_ZejL0"
-    
+        
     //private let service = OfficeService()
     
     
@@ -66,21 +58,37 @@ class OfficeViewModel: ObservableObject {
     }
 
         func search() {
-            let text = searchText.lowercased()
-            
-            filteredOffices = offices.filter { office in
-                    office.address.lowercased().contains(text)
-            }
-            
-            //moves map to first matching office
-            if let first = filteredOffices.first {
-                mapPosition = .region(
-                    MKCoordinateRegion(
-                        center: first.coordinate,
-                        span: MKCoordinateSpan(latitudeDelta: 0.2, longitudeDelta: 0.2)
-                    )
-                )
-            }
+            let query = searchText.lowercased()
+                    
+            db.collection("offices").getDocuments { snapshot, error in
+                        if let error = error {
+                            print("❌ Firestore error: \(error.localizedDescription)")
+                            return
+                        }
+                        
+                        guard let documents = snapshot?.documents else {
+                            print("❌ No documents found")
+                            return
+                        }
+                        
+                            
+                        do {
+                                self.offices = try documents.compactMap { doc in
+                                    try doc.data(as: Office.self)
+                                }.filter { office in
+                                    // simple contains check for address or city field
+                                    office.address.lowercased().contains(query)
+                                }
+                                
+                                print("✅ Found \(self.offices.count) matching offices")
+                            } catch {
+                                print("❌ Decoding error: \(error)")
+                            }
+                            // show bottom sheet
+                            DispatchQueue.main.async {
+                                self.showResultsSheet = true
+                            }
+                        }
         }
     
     

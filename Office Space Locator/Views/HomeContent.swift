@@ -12,15 +12,11 @@ struct HomeContent: View {
     
     var body: some View {
         NavigationStack {
-            ZStack {
+            ZStack(alignment: .top) {
                 
                 /// MAP
-                Map(position: $viewModel.mapPosition) {
-                    ForEach(viewModel.filteredOffices) { office in
-                        Marker(office.name, coordinate: office.coordinate)
-                    }
-                }
-                .ignoresSafeArea()
+                Map(coordinateRegion: $viewModel.region)
+                    .ignoresSafeArea()
                 
                 /// SEARCH + LIST
                 VStack(spacing: 12) {
@@ -32,32 +28,20 @@ struct HomeContent: View {
                     Spacer()
                     
                     
-            if !viewModel.filteredOffices.isEmpty {
-                List(viewModel.filteredOffices) { office in
-               OfficeRowView(office: office)
-                                            }
-                                            .listStyle(.plain)
-                                            .frame(maxHeight: 350)
-                                            .background(.ultraThinMaterial)
-                                            .clipShape(RoundedRectangle(cornerRadius: 20))
-                                            .padding(.horizontal)
-                                            .transition(.move(edge: .bottom).combined(with: .opacity))
-                                            .animation(.easeInOut, value: viewModel.filteredOffices)
-                                        }
-                                    }
-                                }
-            .navigationTitle("Find Office Space")
-            .navigationBarTitleDisplayMode(.inline)
-            
-            /// INITIAL LOAD — Firebase only
-            .task {
-                await viewModel.fetchOffices()
+                }
+                .sheet(isPresented : $viewModel.showResultsSheet){
+                     OfficeResultsSheet()
+                        .environmentObject(viewModel)
+                    
+                }
             }
         }
     }
 }
-
 #Preview {
+        
     HomeContent()
-        .environmentObject(OfficeViewModel())
+            .environmentObject(OfficeViewModel())
 }
+
+
