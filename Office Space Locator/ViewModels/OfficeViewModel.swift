@@ -13,10 +13,11 @@ class OfficeViewModel: ObservableObject {
     @Published var offices: [Office] = []
     //@Published var favorites: [Favorites] = []
     @Published var filteredOffices: [Office] = []
+    @Published var mapAnnotations: [MKPointAnnotation] = []
     @Published var searchText: String = ""
     @Published var region = MKCoordinateRegion(
     center: CLLocationCoordinate2D(latitude: 39.5, longitude: -98.35),
-    span: MKCoordinateSpan(latitudeDelta: 20, longitudeDelta: 20)
+    span: MKCoordinateSpan(latitudeDelta: 0.1, longitudeDelta: 0.1)
         )
     @Published var showResultsSheet = false
     private let db = Firestore.firestore()

@@ -32,8 +32,11 @@ struct HomeContent: View {
                 .sheet(isPresented : $viewModel.showResultsSheet){
                      OfficeResultsSheet()
                         .environmentObject(viewModel)
+                        .presentationDetents([.medium])
+                        .presentationDragIndicator(.visible)
                     
                 }
+                
             }
         }
     }
