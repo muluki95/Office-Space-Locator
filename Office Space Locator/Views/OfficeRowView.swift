@@ -28,7 +28,7 @@ struct OfficeRowView : View {
                             .frame(width: 200, height: 140)
                             .clipShape(RoundedRectangle(cornerRadius: 12))
                             .shadow(radius: 4)
-                            
+                        
                         
                     }
                     
@@ -49,27 +49,39 @@ struct OfficeRowView : View {
                 
                 
             }
+            if office.isBooked {
+                // SHOW BOOKED BUTTON ONLY
+                Text("Booked")
+                    .font(.headline)
+                    .foregroundColor(.white)
+                    .padding()
+                    .frame(maxWidth: .infinity)
+                    .background(Color.green)
+                    .cornerRadius(10)
+                    .disabled(true)
+            } else {
                 
-                //book now button
                 NavigationLink(destination: ConfirmBookView(office: office)){
-                    Text("Book Now")
-                        .fontWeight(.semibold)
-                        .frame(maxWidth: .infinity)
-                        .padding()
-                        .background(Color.blue)
-                        .foregroundColor(.white)
-                        .cornerRadius(8)
+                    
+                        Text("Book Now")
+                            .fontWeight(.semibold)
+                            .frame(maxWidth: .infinity)
+                            .padding()
+                            .background(Color.blue)
+                            .foregroundColor(.white)
+                            .cornerRadius(8)
                     
                 }
-            .padding(.top, 15)
+                .padding(.top, 15)
+            }
         }
-        .padding()
-        .frame(maxWidth: .infinity)
-        .background(Color.gray.opacity(0.1))
-        .cornerRadius(10)
-        
+                .padding()
+                .frame(maxWidth: .infinity)
+                .background(Color.gray.opacity(0.1))
+                .cornerRadius(10)
+            
+        }
     }
-}
 
 
 //#Preview {

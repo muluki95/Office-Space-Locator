@@ -18,6 +18,7 @@ struct Office: Codable, Identifiable, Hashable {
         let imageUrls: [String]
         var latitude: Double = 0
         var longitude: Double = 0
+        var isBooked = false
     
     //coordinates for MapKit
        var coordinate: CLLocationCoordinate2D {

@@ -33,34 +33,35 @@ class FavoritesViewModel: ObservableObject {
     func confirmBooking(office: Office){
         //create a Favorite from the Office you booked
         let favorite = Favorites(
-                id: office.id ?? UUID().uuidString,
-                imageURL: office.imageUrls,
-                name: office.name,
-                location: office.address,
-                size: office.size,
-                price: Int(office.price),
-                isFavorite: true
-            )
+            id: office.id ?? UUID().uuidString,
+            imageURL: office.imageUrls,
+            name: office.name,
+            location: office.address,
+            size: office.size,
+            price: Int(office.price),
+            isFavorite: true
+        )
         
         //checks if the office is already in the favorites list
-        if !favorites.contains(where: {$0.id == favorite.id } ) {
-            favorites.append(favorite)
+        guard !favorites.contains(where: {$0.id == favorite.id } ) else {
             print("Added \(favorite.name) to favorites")
-            
-            
-            do{
-                try db.collection("favorites").document(favorite.id).setData(from: favorite)
-                print("Added \(favorite.name) to Firestore favorites")
-                
-            } catch {
-                print("Error saving favorite to Firestore: \(error.localizedDescription)")
-                
-            }
-            
-        } else {
-            print("\(favorite.name) is already in favorites")
+            return
         }
+        favorites.append(favorite)
+        print("Added \(favorite.name) locally to favorites")
+        
+        do{
+            try db.collection("favorites").document(favorite.id).setData(from: favorite, merge: true)
+            print("Added \(favorite.name) to Firestore favorites")
+            
+        } catch {
+            print("Error saving favorite to Firestore: \(error.localizedDescription)")
+            
+        }
+        
     }
+    
+    
     
     
     func fetchFavorites() {

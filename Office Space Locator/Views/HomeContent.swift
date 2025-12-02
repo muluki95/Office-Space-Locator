@@ -9,6 +9,7 @@ import MapKit
 struct HomeContent: View {
     
     @EnvironmentObject var viewModel: OfficeViewModel
+    @EnvironmentObject var favoriteViewModel: FavoritesViewModel
     
     var body: some View {
         NavigationStack {
@@ -20,7 +21,7 @@ struct HomeContent: View {
                     
                     MapPin(coordinate: annotation.coordinate, tint: .red)
                 }
-                    .ignoresSafeArea()
+                   
                 
                 /// SEARCH + LIST
                 VStack(spacing: 12) {
@@ -49,6 +50,7 @@ struct HomeContent: View {
         
     HomeContent()
             .environmentObject(OfficeViewModel())
+            .environmentObject(FavoritesViewModel())
 }
 
 

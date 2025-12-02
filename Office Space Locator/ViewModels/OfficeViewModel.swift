@@ -133,6 +133,22 @@ class OfficeViewModel: ObservableObject {
                 self.region = MKCoordinateRegion(center: center, span: span)
             }
         }
+    
+    func bookOffice(_ office: Office) {
+        guard let id = office.id else {return}
+        
+        db.collection("offices").document(id).updateData(["isBooked" : true]){ error in
+            
+            if let error = error {
+               print("Error updating document: \(error)")
+                return
+            }
+            if let index = self.offices.firstIndex(where: { $0.id == id }) {
+                        self.offices[index].isBooked = true
+                    }
+            
+        }
+    }
 
     
     

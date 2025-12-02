@@ -85,9 +85,10 @@ struct OfficeCardView: View {
     }
 }
 
-
+/**
 #Preview{
-    OfficeCardView(office: Favorites.mockData[0])
+    OfficeCardView(office: Office)
         .environmentObject(OfficeViewModel())
         .environmentObject(FavoritesViewModel())
 }
+**/
