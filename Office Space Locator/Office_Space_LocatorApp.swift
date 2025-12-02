@@ -31,6 +31,10 @@ struct YourApp: App {
        HomeView()
               .environmentObject(viewModel)
               .environmentObject(favoriteViewModel)
+          
+              .onAppear {
+                                  favoriteViewModel.fetchFavorites()   
+                              }
       }
     }
   }
