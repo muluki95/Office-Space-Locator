@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D78BEDD32EE295DC0006AE11 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = D78BEDD22EE295DC0006AE11 /* FirebaseAuth */; };
 		D78F8DEE2E903199008FEE32 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = D78F8DED2E903199008FEE32 /* Kingfisher */; };
 		D78F8E4A2EB113BD008FEE32 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = D78F8E492EB113BD008FEE32 /* FirebaseAnalytics */; };
 		D78F8E4C2EB113BD008FEE32 /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = D78F8E4B2EB113BD008FEE32 /* FirebaseDatabase */; };
@@ -61,6 +62,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D78F8E4C2EB113BD008FEE32 /* FirebaseDatabase in Frameworks */,
+				D78BEDD32EE295DC0006AE11 /* FirebaseAuth in Frameworks */,
 				D78F8E4E2EB113BD008FEE32 /* FirebaseFirestore in Frameworks */,
 				D78F8E4A2EB113BD008FEE32 /* FirebaseAnalytics in Frameworks */,
 				D78F8E502EB113BD008FEE32 /* FirebaseStorage in Frameworks */,
@@ -138,6 +140,7 @@
 				D78F8E4B2EB113BD008FEE32 /* FirebaseDatabase */,
 				D78F8E4D2EB113BD008FEE32 /* FirebaseFirestore */,
 				D78F8E4F2EB113BD008FEE32 /* FirebaseStorage */,
+				D78BEDD22EE295DC0006AE11 /* FirebaseAuth */,
 			);
 			productName = "Office Space Locator";
 			productReference = D78F8C942E8EEA49008FEE32 /* Office Space Locator.app */;
@@ -601,6 +604,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		D78BEDD22EE295DC0006AE11 /* FirebaseAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D78F8CF92E902E97008FEE32 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAuth;
+		};
 		D78F8DED2E903199008FEE32 /* Kingfisher */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = D78F8CF82E902E60008FEE32 /* XCRemoteSwiftPackageReference "Kingfisher" */;

@@ -21,6 +21,7 @@ struct YourApp: App {
     
     @StateObject var viewModel = OfficeViewModel()
     @StateObject var favoriteViewModel = FavoritesViewModel()
+    @StateObject var authViewModel = AuthenticationViewModel()
   // register app delegate for Firebase setup
   @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
     
@@ -31,6 +32,7 @@ struct YourApp: App {
        HomeView()
               .environmentObject(viewModel)
               .environmentObject(favoriteViewModel)
+              .environmentObject(authViewModel)
           
               .onAppear {
                                   favoriteViewModel.fetchFavorites()   

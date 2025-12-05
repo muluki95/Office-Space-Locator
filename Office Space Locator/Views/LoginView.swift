@@ -12,6 +12,8 @@ struct LoginView: View {
     
     @State var email = ""
     @State var password = ""
+    @EnvironmentObject var authViewModel: AuthenticationViewModel
+    
     var body: some View {
         NavigationStack{
            
@@ -31,10 +33,12 @@ struct LoginView: View {
                     )
                     
                     Button{
-                        
+                        Task{
+                            try await authViewModel.signIn(email: email, password: password)
+                        }
                     } label: {
                         HStack{
-                            Text("LOGIN")
+                            Text("SIGN IN")
                                 .fontWeight(.semibold)
                             Image(systemName: "arrow.right")
                         }
@@ -81,4 +85,5 @@ struct LoginView: View {
 
 #Preview{
     LoginView()
+        .environmentObject(AuthenticationViewModel())
 }
