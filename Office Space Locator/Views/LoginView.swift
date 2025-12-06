@@ -24,7 +24,7 @@ struct LoginView: View {
                 InputView(text: $email,
                               title: "Email Address",
                               placeholder: "abc@gmail..com")
-                .autocapitalization(.none)
+                .textInputAutocapitalization(.never)
                     
                     InputView(text: $password,
                               title: "Password",

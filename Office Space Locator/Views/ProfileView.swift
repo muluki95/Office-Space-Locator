@@ -10,31 +10,34 @@ import SwiftUI
 
 
 struct ProfileView: View {
+    @EnvironmentObject var authViewModel: AuthenticationViewModel
+  
     var body: some View {
-        List{
-            Section {
-                HStack{
-                    Text(User.MOCK_USER.initials)
-                        .font(.title)
-                        .fontWeight(.semibold)
-                        .foregroundColor(.white)
-                        .frame(width: 72, height: 72)
-                        .background(Color.blue)
-                        .clipShape(Circle())
-                    
-                    VStack(alignment: .leading){
-                        Text(User.MOCK_USER.fullname)
-                            .font(.headline)
-                            .padding(.top, 4)
-                        Text(User.MOCK_USER.email)
-                            .font(.caption)
+        if let user = authViewModel.currentUser {
+            List{
+                Section {
+                    HStack{
+                        Text(user.initials)
+                            .font(.title)
                             .fontWeight(.semibold)
-                            .foregroundColor(.gray)
+                            .foregroundColor(.white)
+                            .frame(width: 72, height: 72)
+                            .background(Color.blue)
+                            .clipShape(Circle())
+                        
+                        VStack(alignment: .leading){
+                            Text(user.fullname)
+                                .font(.headline)
+                                .padding(.top, 4)
+                            Text(user.email)
+                                .font(.caption)
+                                .fontWeight(.semibold)
+                                .foregroundColor(.gray)
+                        }
                     }
+                    
                 }
-                
             }
-            
             Section("General"){
                 HStack{
                     SettingsRowView(imageName: "gear", title: "Version", tintColor: .gray)
@@ -108,4 +111,5 @@ struct ProfileView: View {
 
 #Preview {
     ProfileView()
+        .environmentObject(AuthenticationViewModel())
 }

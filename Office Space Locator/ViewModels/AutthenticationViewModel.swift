@@ -10,13 +10,18 @@ import Firebase
 import FirebaseAuth
 import FirebaseFirestore
 
-
+@MainActor
 class AuthenticationViewModel: ObservableObject {
     @Published var userSession: FirebaseAuth.User?
     @Published var currentUser: User?
     
     
     init() {
+        self.userSession = Auth.auth().currentUser
+        
+        Task{
+            await fetchUserData()
+        }
         
     }
     
@@ -33,6 +38,7 @@ class AuthenticationViewModel: ObservableObject {
             let user = User(id: results.user.uid, fullname: fullname, email: email)
             let encodedUser = try Firestore.Encoder().encode(user)
             try await Firestore.firestore().collection("users").document(user.id).setData(from: user)
+            await fetchUserData()
         } catch {
             print("Failed to create a user: \(error.localizedDescription)")
         }
@@ -47,7 +53,14 @@ class AuthenticationViewModel: ObservableObject {
         
     }
     
-     func fetchUserData() async{
+    func fetchUserData() async{
+       
+            guard let uid = Auth.auth().currentUser?.uid else {return}
+            
+            guard let snapshot = try? await Firestore.firestore().collection("users").document(uid).getDocument() else {return}
+            self.currentUser = try? snapshot.data(as: User.self)
+       
+           print("current user is \(self.currentUser)")
         
     }
 }
