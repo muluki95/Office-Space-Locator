@@ -14,9 +14,13 @@ struct ContentView: View {
     var body: some View {
         Group {
             if authViewModel.currentUser != nil {
-                HomeView()
-            } else {
                 LoginView()
+                    .environmentObject(authViewModel)
+            } else {
+                NavigationStack{
+                    SignUpView()
+                        .environmentObject(authViewModel)
+                }
             }
         }
     }

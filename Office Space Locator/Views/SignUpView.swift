@@ -16,75 +16,104 @@ struct SignUpView: View {
     @Environment(\.dismiss) var dismiss
     @EnvironmentObject var authViewModel: AuthenticationViewModel
     var body: some View {
-        VStack{
-            Spacer()
-            
-            VStack(spacing: 24){
-               
-                InputView(text: $email,
-                          title: "Email Address",
-                          placeholder: "abc@gmail.com",)
-                .autocapitalization(.none)
+        NavigationStack{
+            VStack{
+                Spacer()
                 
-                
-                InputView(text: $fullname,
-                          title: "Name",
-                          placeholder: "Enter your full name")
-                
-                
-                InputView(text: $password,
-                          title: "Password",
-                          placeholder: "Enter your password")
-            
-                
-                InputView(text: $confirmPassword,
-                          title: "Confirm Password",
-                          placeholder: "Confirm your password")
-                
-            }
-            .padding(.horizontal)
-            
-            
-            
-            Button{
-                Task{
-                    try await authViewModel.createUser(email: email, password: password, fullname: fullname)
-                }
-            } label: {
-                HStack{
-                    Text("SIGN UP")
-                        .fontWeight(.semibold)
-                    Image(systemName: "arrow.right")
-                }
-                .foregroundStyle(.white)
-                .frame(maxWidth: .infinity, maxHeight: 50)
-                
-                
-            }
-            .background(Color.blue)
-            .cornerRadius(10)
-            .padding(.horizontal, 12)
-            
-            Spacer()
-            
-            Button{
-                dismiss()
-            } label: {
-                HStack(spacing: 12){
-                    Text("Already have an account?")
-                    Text("Login")
-                        .fontWeight(.semibold)
+                VStack(spacing: 24){
+                    
+                    InputView(text: $email,
+                              title: "Email Address",
+                              placeholder: "abc@gmail.com",)
+                    .autocapitalization(.none)
+                    
+                    
+                    InputView(text: $fullname,
+                              title: "Name",
+                              placeholder: "Enter your full name")
+                    
+                    
+                    InputView(text: $password,
+                              title: "Password",
+                              placeholder: "Enter your password",
+                              isSecureField: true)
+                    
+                    
+                    
+                    ZStack(alignment: .trailing){
+                        InputView(text: $confirmPassword,
+                                  title: "Confirm Password",
+                                  placeholder: "Confirm your password", isSecureField: true)
+                        
+                        if !password.isEmpty && !confirmPassword.isEmpty {
+                            if password == confirmPassword{
+                                Image(systemName: "checkmark.circle.fill")
+                                    .imageScale(.large)
+                                    .fontWeight(.bold)
+                                    .foregroundStyle(.green)
+                            } else {
+                                Image(systemName: "xmark.circle.fill")
+                                    .imageScale(.large)
+                                    .fontWeight(.bold)
+                                    .foregroundStyle(.red)
+                            }
+                        }
+                    }
                     
                 }
-                .font(.system(size:14))
-                .padding(.horizontal,12)
+                .padding(.horizontal)
+                
+                
+                
+                Button{
+                    Task{
+                        if formIsValid && password == confirmPassword {
+                            try await authViewModel.createUser(email: email, password: password, fullname: fullname)
+                        }
+                    }
+                } label: {
+                    HStack{
+                        Text("SIGN UP")
+                            .fontWeight(.semibold)
+                        Image(systemName: "arrow.right")
+                    }
+                    .foregroundStyle(.white)
+                    .frame(maxWidth: .infinity, maxHeight: 50)
+                    
+                    
+                }
+                .background(Color.blue)
+                .disabled(!formIsValid)
+                .opacity(formIsValid ? 1: 0.5)
+                .cornerRadius(10)
+                .padding(.horizontal, 12)
+                
+                Spacer()
+                
+                Button{
+                    dismiss()
+                } label: {
+                    HStack(spacing: 12){
+                        Text("Already have an account?")
+                        Text("Login")
+                            .fontWeight(.semibold)
+                        
+                    }
+                    .font(.system(size:14))
+                    .padding(.horizontal,12)
+                }
             }
+            .padding(.horizontal, 12)
+            
         }
-        .padding(.horizontal, 12)
-        
     }
 }
 
+extension SignUpView: AuthenticationFormProtocol{
+    var formIsValid: Bool{
+        return !email.isEmpty && email.contains("@") && !password.isEmpty && password.count > 5
+    }
+}
 
 #Preview{
     SignUpView()

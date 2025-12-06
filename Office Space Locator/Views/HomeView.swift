@@ -12,6 +12,7 @@ import SwiftUI
 struct HomeView: View {
     @EnvironmentObject var viewModel: OfficeViewModel
     @EnvironmentObject var favoritesViewModel: FavoritesViewModel
+    @EnvironmentObject  var authViewModel: AuthenticationViewModel
     
     @State private var selectedTab = 0
     var body: some View {
@@ -32,7 +33,7 @@ struct HomeView: View {
                     }
                 }
                 .tag(1)
-            Text("Profile")
+           ProfileView()
                 .tabItem {
                     VStack{
                         Image(systemName:selectedTab == 2 ? "person.fill" : "person")
@@ -52,4 +53,5 @@ struct HomeView: View {
     HomeView()
         .environmentObject(OfficeViewModel())
         .environmentObject(FavoritesViewModel())
+        .environmentObject(AuthenticationViewModel())
 }
