@@ -6,11 +6,14 @@
 //
 
 import Foundation
+import Combine
+import SwiftUI
 
 struct User: Codable, Identifiable {
-    let id: String
-    let fullname: String
-    let email: String
+    var id: String {uid}
+    var uid: String
+    var fullname: String
+    var email: String
     
     
     var initials: String {
@@ -22,9 +25,15 @@ struct User: Codable, Identifiable {
         
         return ""
     }
+    enum CodingKeys: String, CodingKey {
+            case uid
+            case fullname
+            case email
+            
+        }
 }
 
 
 extension User{
-    static var MOCK_USER = User(id: NSUUID().uuidString, fullname: "Esther Nzomo", email: "esther@example.com")
+    static var MOCK_USER = User(uid: NSUUID().uuidString, fullname: "Esther Nzomo", email: "esther@example.com")
 }

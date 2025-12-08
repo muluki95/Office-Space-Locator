@@ -13,16 +13,18 @@ struct ContentView: View {
     
     var body: some View {
         Group {
-            if authViewModel.currentUser != nil {
-                LoginView()
+            if authViewModel.userSession != nil {
+                ProfileView()
                     .environmentObject(authViewModel)
             } else {
-                NavigationStack{
-                    SignUpView()
+               
+                    LoginView()
                         .environmentObject(authViewModel)
-                }
+                
             }
+                
         }
+        .animation(.easeInOut, value: authViewModel.userSession)
     }
 }
 

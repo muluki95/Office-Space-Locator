@@ -90,18 +90,16 @@ struct SignUpView: View {
                 
                 Spacer()
                 
-                Button{
-                    dismiss()
-                } label: {
-                    HStack(spacing: 12){
-                        Text("Already have an account?")
-                        Text("Login")
-                            .fontWeight(.semibold)
-                        
-                    }
-                    .font(.system(size:14))
-                    .padding(.horizontal,12)
-                }
+                //back to sign in page
+                NavigationLink(destination: LoginView()
+                    .navigationBarBackButtonHidden(true)
+                                ) {
+                                    HStack{
+                                        Text("Already have an account?")
+                                        Text("Login")
+                                            .fontWeight(.bold)
+                                    }
+                                }
             }
             .padding(.horizontal, 12)
             
@@ -111,7 +109,8 @@ struct SignUpView: View {
 
 extension SignUpView: AuthenticationFormProtocol{
     var formIsValid: Bool{
-        return !email.isEmpty && email.contains("@") && !password.isEmpty && password.count > 5
+        return !email.isEmpty && email.contains("@") && !password.isEmpty && password.count > 5 &&
+           confirmPassword == password
     }
 }
 

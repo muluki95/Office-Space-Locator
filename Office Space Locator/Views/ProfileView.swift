@@ -5,7 +5,36 @@ struct ProfileView: View {
 
     var body: some View {
         Group {
-            if let user = authViewModel.currentUser {
+            if authViewModel.userSession == nil {
+                VStack(spacing: 16) {
+                    Image(systemName: "person.crop.circle.fill.badge.exclamationmark")
+                        .resizable()
+                        .frame(width: 72, height: 72)
+                        .foregroundColor(.gray)
+                    
+                    Text("You are not logged in")
+                        .font(.headline)
+                        .foregroundColor(.gray)
+                    
+                    Text("Please log in to access your profile.")
+                        .font(.subheadline)
+                        .foregroundColor(.gray)
+                        .multilineTextAlignment(.center)
+                        .padding(.horizontal)
+                }
+                .padding()
+            }
+            else if authViewModel.isLoadingUser {
+                            VStack {
+                                ProgressView()
+                                    .progressViewStyle(CircularProgressViewStyle())
+                                Text("Loading profile...")
+                                    .foregroundColor(.gray)
+                                    .padding(.top, 8)
+                            }
+                            .padding()
+                        }
+            else if let user = authViewModel.currentUser {
                 List {
                     // USER INFO SECTION
                     Section {
@@ -30,7 +59,7 @@ struct ProfileView: View {
                             }
                         }
                     }
-
+                    
                     // GENERAL SECTION
                     Section("General") {
                         HStack {
@@ -39,28 +68,28 @@ struct ProfileView: View {
                             Text("1.0.0")
                                 .foregroundColor(.gray)
                         }
-
+                        
                         HStack {
                             SettingsRowView(imageName: "clock", title: "Last Updated", tintColor: .gray)
                             Spacer()
                             Text("Dec 2025")
                                 .foregroundColor(.gray)
                         }
-
+                        
                         HStack {
                             SettingsRowView(imageName: "person", title: "Developer", tintColor: .gray)
                             Spacer()
                             Text("Esther Nzomo")
                                 .foregroundColor(.gray)
                         }
-
+                        
                         HStack {
                             SettingsRowView(imageName: "app", title: "App Name", tintColor: .gray)
                             Spacer()
                             Text("Office Space Locator")
                                 .foregroundColor(.gray)
                         }
-
+                        
                         HStack {
                             SettingsRowView(imageName: "envelope", title: "Support", tintColor: .gray)
                             Spacer()
@@ -68,7 +97,7 @@ struct ProfileView: View {
                                 .foregroundColor(.gray)
                         }
                     }
-
+                    
                     // ACCOUNT SECTION
                     Section("Account") {
                         Button {
@@ -78,8 +107,15 @@ struct ProfileView: View {
                                             title: "Sign Out",
                                             tintColor: .red)
                         }
-
-                        Button {
+                        
+                        Button(role: .destructive) {
+                            Task{
+                                do{
+                                    try await authViewModel.deleteAccount()
+                                } catch {
+                                    
+                                }
+                            }
                             // delete logic...
                         } label: {
                             SettingsRowView(imageName: "xmark.circle.fill",
@@ -88,23 +124,24 @@ struct ProfileView: View {
                         }
                     }
                 }
-            } else {
-               
-                VStack {
-                    ProgressView()
-                        .progressViewStyle(CircularProgressViewStyle())
-                    Text("Loading profile...")
-                        .foregroundColor(.gray)
-                        .padding(.top, 8)
-                }
-                .onAppear {
-                    Task { await authViewModel.fetchUserData() }
-                            }
             }
+        
+            else {
+                    Text("Failed to load user profile")
+                                .foregroundColor(.red)
+                                .padding()
+                        }
+                    }
+                    .onAppear {
+                        // Fetch user data if session exists and currentUser is nil
+                        if authViewModel.userSession != nil && authViewModel.currentUser == nil {
+                            Task { await authViewModel.fetchUserData() }
+                        }
+                    }
         }
         
     }
-}
+
 
 #Preview {
     ProfileView()

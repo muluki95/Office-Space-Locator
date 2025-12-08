@@ -17,7 +17,7 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 }
 
 @main
-struct YourApp: App {
+struct Office_Space_LocatorApp: App {
     
     @StateObject var viewModel = OfficeViewModel()
     @StateObject var favoriteViewModel = FavoritesViewModel()
@@ -27,17 +27,21 @@ struct YourApp: App {
     
 
   var body: some Scene {
-    WindowGroup {
-      NavigationView {
-       HomeView()
-              .environmentObject(viewModel)
-              .environmentObject(favoriteViewModel)
-              .environmentObject(authViewModel)
-          
-              .onAppear {
-                                  favoriteViewModel.fetchFavorites()   
-                              }
+      WindowGroup {
+          NavigationView {
+              Group {
+                  if authViewModel.userSession != nil {
+                      HomeView()
+                          .environmentObject(viewModel)
+                          .environmentObject(favoriteViewModel)
+                          .environmentObject(authViewModel)
+                  } else {
+                      LoginView()
+                          .environmentObject(authViewModel)
+                  }
+              }
+              .animation(.easeInOut, value: authViewModel.userSession)
+          }
       }
-    }
   }
 }
