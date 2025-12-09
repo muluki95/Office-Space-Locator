@@ -93,7 +93,7 @@ struct ProfileView: View {
                         HStack {
                             SettingsRowView(imageName: "envelope", title: "Support", tintColor: .gray)
                             Spacer()
-                            Text("support@example.com")
+                            Text("https://github.com/muluki95/office-space-locator-support/blob/main/README.md#support")
                                 .foregroundColor(.gray)
                         }
                     }
