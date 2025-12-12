@@ -20,7 +20,8 @@ struct OfficeCardView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 10){
             ImageScrollerView(imageUrls: office.imageURL)
-                .frame(width: 350, height: 200)
+                .frame(maxWidth:.infinity)
+                .frame(height: 220)
             
             HStack {
                 VStack(alignment: .leading, spacing: 5) {
@@ -71,6 +72,10 @@ struct OfficeCardView: View {
             
         }
         .padding()
+        .frame(maxWidth: .infinity)
+        .background(.ultraThinMaterial)
+        .clipShape(RoundedRectangle(cornerRadius: 20))
+        .padding(.horizontal)
         .alert("Remove Favorites?", isPresented: $showDeleteAlert){
             Button("Delete", role: .destructive){
                 favoritesViewModel.deleteFavorites(office)

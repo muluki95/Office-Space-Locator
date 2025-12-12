@@ -86,7 +86,22 @@ class AuthenticationViewModel: ObservableObject {
     func deleteAccount() async throws {
         
         guard let user = Auth.auth().currentUser else { return }
-        try await user.delete()
+        let uid = user.uid
+        
+        
+        do{
+            await MainActor.run {
+                self.userSession = nil
+                self.currentUser = nil
+            }
+            try await Firestore.firestore().collection("users").document(uid).delete()
+            try await user.delete() //deletes firebase auth user
+            
+            
+            print("Account deleted successfully.")
+        } catch {
+            print("Failed to delete account: \(error.localizedDescription)")
+        }
         
     }
     

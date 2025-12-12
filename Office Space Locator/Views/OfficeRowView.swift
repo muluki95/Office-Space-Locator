@@ -25,7 +25,7 @@ struct OfficeRowView : View {
                             }
                             .resizable()
                             .scaledToFill()
-                            .frame(width: 200, height: 140)
+                            .frame(maxWidth: .infinity, maxHeight: 120)
                             .clipShape(RoundedRectangle(cornerRadius: 12))
                             .shadow(radius: 4)
                         

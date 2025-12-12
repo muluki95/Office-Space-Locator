@@ -28,7 +28,6 @@ struct Office_Space_LocatorApp: App {
 
   var body: some Scene {
       WindowGroup {
-          NavigationView {
               Group {
                   if authViewModel.userSession != nil {
                       HomeView()
@@ -42,6 +41,5 @@ struct Office_Space_LocatorApp: App {
               }
               .animation(.easeInOut, value: authViewModel.userSession)
           }
-      }
   }
 }

@@ -2,6 +2,7 @@ import SwiftUI
 
 struct ProfileView: View {
     @EnvironmentObject var authViewModel: AuthenticationViewModel
+    @State private var showDeleteAlert = false
 
     var body: some View {
         Group {
@@ -93,7 +94,7 @@ struct ProfileView: View {
                         HStack {
                             SettingsRowView(imageName: "envelope", title: "Support", tintColor: .gray)
                             Spacer()
-                            Text("https://github.com/muluki95/office-space-locator-support/blob/main/README.md#support")
+                            Text("https://muluki95.github.io/office-space-locator-support/")
                                 .foregroundColor(.gray)
                         }
                     }
@@ -109,19 +110,27 @@ struct ProfileView: View {
                         }
                         
                         Button(role: .destructive) {
-                            Task{
-                                do{
-                                    try await authViewModel.deleteAccount()
-                                } catch {
-                                    
-                                }
-                            }
-                            // delete logic...
+                         showDeleteAlert = true
                         } label: {
                             SettingsRowView(imageName: "xmark.circle.fill",
                                             title: "Delete Account",
                                             tintColor: .red)
                         }
+                        .alert("Delete Account", isPresented: $showDeleteAlert){
+                            Button("Delete",role: .destructive){
+                                Task{
+                                     try await authViewModel.deleteAccount()
+                                }
+                            }
+                            
+                            Button("Cancel", role: .cancel){
+                                
+                            }
+                        } message: {
+                            Text("Are you sure you want to permanently delete your account?")
+                            
+                        }
+                        
                     }
                 }
             }
