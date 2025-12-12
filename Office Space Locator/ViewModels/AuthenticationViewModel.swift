@@ -90,15 +90,17 @@ class AuthenticationViewModel: ObservableObject {
         
         
         do{
+            
+            
+            try await user.delete() //deletes firebase auth user
+            
+            try await Firestore.firestore().collection("users").document(uid).delete()
+            
             await MainActor.run {
                 self.userSession = nil
                 self.currentUser = nil
             }
-            try await Firestore.firestore().collection("users").document(uid).delete()
-            try await user.delete() //deletes firebase auth user
-            
-            
-            print("Account deleted successfully.")
+            print("Successfully deleted Auth user + Firestore document")
         } catch {
             print("Failed to delete account: \(error.localizedDescription)")
         }
@@ -120,7 +122,19 @@ class AuthenticationViewModel: ObservableObject {
                    print("📌 Document exists:", snapshot.exists)
 
                            if !snapshot.exists {
-                               print("❌ Document for this user does NOT exist in Firestore!")
+                               print(" Document missing, creating new user document...")
+
+                                   let newUser = User(uid: uid,
+                                                      fullname: self.currentUser?.fullname ?? "Unknown",
+                                                      email: userSession?.email ?? "")
+
+                                   try await Firestore.firestore()
+                                       .collection("users")
+                                       .document(uid)
+                                       .setData(Firestore.Encoder().encode(newUser))
+
+                                   self.currentUser = newUser
+                                   return
                            }
 
                            print("📄 Raw snapshot data:", snapshot.data() ?? "nil")
