@@ -14,7 +14,7 @@ struct ImageScrollerView: View {
     let imageUrls: [String]
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false){
-            HStack {
+            HStack(spacing: 12) {
                 ForEach(imageUrls, id: \.self) { url in
                     KFImage(URL(string: url))
                         .placeholder{
@@ -28,6 +28,7 @@ struct ImageScrollerView: View {
                 }
                 
             }
+            .padding(.horizontal,12)
         }
     }
 }
